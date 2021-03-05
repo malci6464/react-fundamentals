@@ -7,6 +7,7 @@
   <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
 
   <script type="text/babel">
     //part1
@@ -41,25 +42,30 @@
       )
     }
 
-    const PropTypes = {
-      string(props, propName, componentName) {
-        if (typeof props[propName] !== 'string') {
-          return new Error(
-            `Hey, the component ${componentName} needs the prop ${propName} to be a string, but a ${typeof props[
-              propName
-            ]} was passed`,
-          )
-        }
-      },
-    }
+    // not reuwires due to prop types package
+    // const PropTypes = {
+    //   string(props, propName, componentName) {
+    //     if (typeof props[propName] !== 'string') {
+    //       return new Error(
+    //         `Hey, the component ${componentName} needs the prop ${propName} to be a string, but a ${typeof props[
+    //           propName
+    //         ]} was passed`,
+    //       )
+    //     }
+    //   },
+    // }
 
+
+    //add .isRequired to ensure test runs
+    //not important if using typescript
     Message2.propTypes = {
-      subject: PropTypes.string,
-      greeting: PropTypes.string,
+      subject: PropTypes.string.isRequired,
+      greeting: PropTypes.string.isRequired,
     }
 
     //{5 should get error}
     //prop types need to be passed before data
+    // can only run in dev mode - lots of performance overhead
     const element2 = (
       <div className="container">
         <Message2 greeting={5} subject="World2" />
@@ -67,6 +73,16 @@
       </div>
     )
 
+      
+    //fregments - React.Fragment
+    const element3 = (
+      <>
+        <Message2 greeting={5} subject="World2" />
+        <Message2 greeting="Goodbye" subject="World2" />
+      </>
+    )
+
     ReactDOM.render(element2, document.getElementById('root2'))
+
   </script>
 </body>
