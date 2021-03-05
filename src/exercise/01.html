@@ -7,7 +7,8 @@
             newDiv.textContent = 'Hello World'
             newDiv.className= "container"
                     
-            let rootEl = document.getElementById('root')
+            let rootEl = document.createElement('root')
+            document.body.append(rootEl)
             rootEl.append(newDiv)
         </script>
     </body>
